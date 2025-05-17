@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Öğrenci düğüm yapısı
+typedef struct node {
+    int no;
+    char name[30];
+    int age;
+    struct node* next;
+} node;
+
+//Liste oluşturma fonksiyonu
+node* createList() {
+    int n, k;
+    node *head = NULL, *p = NULL;
+
+    printf("How many students in the list: ");
+    scanf("%d", &n);
+
+    for (k = 0; k < n; k++) {
+        if (k == 0) {
+            head = (node*)malloc(sizeof(node));
+            p = head;
+        } 
+        else {
+            p->next = (node*)malloc(sizeof(node));
+            p = p->next;
+        }
+
+        printf("Enter %d. student number: ", k + 1);
+        scanf("%d", &p->no);
+
+        printf("Enter %d. student name: ", k + 1);
+        scanf("%s", p->name);
+
+        printf("Enter %d. student age: ", k + 1);
+        scanf("%d", &p->age);
+    }
+
+    p->next = NULL; //listenin sonu
+    return head;    //başı döndür
+}
+
+// Listeyi yazdırma
+void printList(node* head) {
+    while (head != NULL) {
+        printf("No: %d | Name: %s | Age: %d\n", head->no, head->name, head->age );
+        head = head->next;
+    }
+}
+
+// Ana fonksiyon
+int main() {
+    node* list = createList();
+    printf("\n--- Student List ---\n");
+    printList(list);
+    return 0;
+}
